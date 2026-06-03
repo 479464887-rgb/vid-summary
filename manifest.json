@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "VidSummary",
+  "version": "1.0.0",
+  "description": "YouTube视频AI智能摘要 — 一键获取视频核心要点与时间戳",
+  "author": {"email": "tulv202900@163.com"},
+  "permissions": ["storage"],
+  "host_permissions": ["https://www.youtube.com/*", "https://api.deepseek.com/*"],
+  "background": {"service_worker": "background.js", "type": "module"},
+  "content_scripts": [{
+    "matches": ["https://www.youtube.com/watch*"],
+    "js": ["content.js"],
+    "css": ["style.css"],
+    "run_at": "document_end"
+  }],
+  "action": {"default_popup": "popup.html", "default_icon": {"16":"icon16.png","48":"icon48.png","128":"icon128.png"}},
+  "icons": {"16":"icon16.png","48":"icon48.png","128":"icon128.png"}
+}
