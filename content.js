@@ -82,7 +82,8 @@
       const resp = await chrome.runtime.sendMessage({ type: 'SUMMARIZE', transcript, lang: 'zh' });
       if (resp.error) throw new Error(resp.error);
 
-      result.innerHTML = resp.summary.replace(/\n/g, '<br>');
+      result.textContent = resp.summary; // safe: no HTML injection
+  // result.innerHTML = resp.summary.replace(/\n/g, '<br>');
       result.style.display = 'block';
     } catch (e) {
       const msgs = {

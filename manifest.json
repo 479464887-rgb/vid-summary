@@ -1,5 +1,6 @@
 {
   "manifest_version": 3,
+  "minimum_chrome_version": "88",
   "name": "VidSummary",
   "version": "1.0.0",
   "description": "YouTube视频AI智能摘要 — 一键获取视频核心要点与时间戳",
