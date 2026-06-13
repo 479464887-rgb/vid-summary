@@ -7,8 +7,8 @@ h1{font-size:15px;color:#3ea6ff;margin-bottom:12px}
 .btn:hover{background:#3f3f3f}
 </style></head><body>
 <h1>🤖 VidSummary</h1>
-<div class="stat"><span>Used Today</span><span id="count">-</span></div>
-<button class="btn" id="settings">⚙️ Settings</button>
-<p style="margin-top:10px;font-size:11px;color:#717171;text-align:center">One-click AI summary for YouTube videos</p>
+<div class="stat"><span>今日已用</span><span id="count">-</span></div>
+<button class="btn" id="settings">⚙️ 设置</button>
+<p style="margin-top:10px;font-size:11px;color:#717171;text-align:center">YouTube视频一键AI摘要</p>
 <script src="popup.js"></script>
 </body></html>

@@ -39,22 +39,22 @@ async function summarize(transcript, language = 'zh') {
   const s = settings || DEFAULTS;
   if (!s.deepseekKey) throw new Error('NO_KEY');
 
-  // Truncate long text
+  // 截断过长文本
   const text = transcript.substring(0, 12000);
 
-  const langPrompt = language === 'zh' ? 'Please output in Chinese.' : 'Please output in English.';
+  const langPrompt = language === 'zh' ? '请用中文输出。' : 'Please output in English.';
 
-  const prompt = `你是一个视频内容Summarize专家。请分析以下YouTube视频ch幕，提取核心内容。
+  const prompt = `你是一个视频内容总结专家。请分析以下YouTube视频字幕，提取核心内容。
 
 要求：
-1. Summarize the video topic in one sentence
-2. List 5-8 key points (1-2 sentences each)
-3. If applicable, mark key timestamps
-4. Indicate the target audience
+1. 用一句话概括视频主题
+2. 列出 5-8 个核心要点（每点 1-2 句话）
+3. 如果适用，标注关键时间点
+4. 指出视频适合谁看
 
 ${langPrompt}
 
-视频ch幕：
+视频字幕：
 ${text}`;
 
   const resp = await fetch(API, {
@@ -71,7 +71,7 @@ ${text}`;
   if (!resp.ok) throw new Error(`API_${resp.status}`);
   const data = await resp.json();
 
-  // Update counter
+  // 更新计数
   const { count, date } = await chrome.storage.local.get(['count', 'date']);
   const today = new Date().toDateString();
   const newCount = (date === today ? (count || 0) : 0) + 1;

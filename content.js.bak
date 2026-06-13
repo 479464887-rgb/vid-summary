@@ -8,7 +8,7 @@
   function createPanel() {
     if (panel) return panel;
 
-    // Wait for YouTube page to render
+    // 等 YouTube 页面渲染完
     const secondary = document.getElementById('secondary') || document.getElementById('secondary-inner');
     if (!secondary) { setTimeout(createPanel, 1000); return; }
 
@@ -21,13 +21,13 @@
           <div style="display:flex;align-items:center;gap:8px;color:#fff;font-size:15px;font-weight:600">
             🤖 VidSummary
           </div>
-          <button id="vidsum-btn" style="background:#065fd4;color:#fff;border:none;border-radius:18px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer">Generate Summary</button>
+          <button id="vidsum-btn" style="background:#065fd4;color:#fff;border:none;border-radius:18px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer">生成摘要</button>
         </div>
         <div id="vidsum-result" style="color:#aaa;font-size:13px;line-height:1.6;display:none"></div>
-        <div id="vidsum-loading" style="display:none;color:#aaa;font-size:13px;text-align:center;padding:20px">⏳ AI is analyzing video content...</div>
+        <div id="vidsum-loading" style="display:none;color:#aaa;font-size:13px;text-align:center;padding:20px">⏳ AI正在分析视频内容...</div>
         <div id="vidsum-error" style="display:none;color:#f85149;font-size:13px;padding:8px 0"></div>
         <div style="margin-top:12px;font-size:11px;color:#717171;text-align:center">
-          10 free per day · <a href="#" id="vidsum-settings" style="color:#3ea6ff;text-decoration:none">SettingsAPI Key</a>
+          每日10次免费 · <a href="#" id="vidsum-settings" style="color:#3ea6ff;text-decoration:none">设置API Key</a>
         </div>
       </div>
     `;
@@ -44,17 +44,17 @@
   }
 
   function getTranscript() {
-    // YouTube transcript button
-    const transcriptBtn = document.querySelector('[aria-label*="transcript"],[aria-label*="transcript"],[aria-label*="transcript"]');
+    // YouTube 的字幕按钮
+    const transcriptBtn = document.querySelector('[aria-label*="字幕"],[aria-label*="transcript"],[aria-label*="文字记录"]');
     if (transcriptBtn) transcriptBtn.click();
 
-    // Try to get transcript text
+    // 尝试获取字幕文本
     const captions = document.querySelectorAll('.caption-window, .ytp-caption-segment, .captions-text');
     if (captions.length > 0) {
       return Array.from(captions).map(c => c.textContent).join(' ');
     }
 
-    // Fallback: get video description
+    // 备用：获取视频描述作为降级方案
     const desc = document.querySelector('#description-inline-expander, [slot="content"]')?.textContent?.trim();
     return desc || '';
   }
@@ -68,7 +68,7 @@
     const loading = document.getElementById('vidsum-loading');
     const error = document.getElementById('vidsum-error');
     
-    btn.disabled = true; btn.textContent = 'Analyzing...';
+    btn.disabled = true; btn.textContent = '分析中...';
     result.style.display = 'none'; error.style.display = 'none';
     loading.style.display = 'block';
 
@@ -87,17 +87,17 @@
       result.style.display = 'block';
     } catch (e) {
       const msgs = {
-        DAILY_LIMIT: 'Daily free limit reached (10/day)',
-        NO_TRANSCRIPT: 'Could not get video transcript. Make sure captions are available or try refreshing.',
-        NO_KEY: 'Please set your DeepSeek API Key first',
-        default: `Analysis failed：${e.message}`
+        DAILY_LIMIT: '今日免费次数已用完（10次/天）',
+        NO_TRANSCRIPT: '未能获取视频字幕。请确保视频有字幕或尝试刷新页面。',
+        NO_KEY: '请先设置 DeepSeek API Key',
+        default: `分析失败：${e.message}`
       };
       error.textContent = msgs[e.message] || msgs.default;
       error.style.display = 'block';
     }
 
     loading.style.display = 'none';
-    btn.disabled = false; btn.textContent = 'Generate Summary';
+    btn.disabled = false; btn.textContent = '生成摘要';
     isProcessing = false;
   }
 
